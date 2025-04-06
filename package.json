@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "dev" : "dotnet run --project src/AppHost",
+        "clean" : "dotnet clean src/AppHost",
+        "build" : "dotnet build src/AppHost"
+    }
+}

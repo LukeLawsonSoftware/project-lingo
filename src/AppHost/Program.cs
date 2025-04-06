@@ -1,6 +1,13 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var apiService = builder.AddProject<Projects.ApiService>("apiservice");
+var ollama = builder.AddOllama("ollama")
+               .WithDataVolume();
+var chat = ollama.AddModel("chat", "phi3");
+
+var apiService = builder.AddProject<Projects.ApiService>("apiservice")
+    .WithExternalHttpEndpoints()
+    .WithReference(chat)
+    .WaitFor(chat);
 
 builder.AddProject<Projects.Web>("webfrontend")
     .WithExternalHttpEndpoints()
